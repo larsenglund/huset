@@ -1,0 +1,16 @@
+!!!
+html
+    head
+        title= "Huset"
+        meta(name='viewport', content='width=device-width,initial-scale=1')
+        link(rel='stylesheet', href='http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css')
+        link(rel='stylesheet', href='/css/custom.css')
+        script(type='text/javascript', src='http://code.jquery.com/jquery-1.9.1.min.js')
+        script(type='text/javascript', src='http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js')
+        script(type='text/javascript', src='/javascripts/socket.io/socket.io.js')
+        script(type='text/javascript', src='/javascripts/clientscripts.js')
+    body(class="ui-mobile-viewport ui-overlay-a")
+        //div(data-role='dialog',id='dialog')
+        //    div(data-role='content',class='ui-content')
+        //        p Connection to server lost, reconnecting..
+        block content

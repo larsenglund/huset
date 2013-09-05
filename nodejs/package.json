@@ -1,0 +1,13 @@
+{
+  "name": "HUS",
+  "version": "0.0.1",
+  "description": "Hus test",
+  "dependencies": {
+    "socket.io": "latest",
+    "express": "latest",
+    "jade": "latest",
+    "serialport": "latest",
+    "rrd": "C:\\Users\\Administrator\\Documents\\GitHub\\node_rrd"
+  },
+  "author": "developer"
+}

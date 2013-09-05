@@ -1,0 +1,26 @@
+Serial protocoll
+
+All lines are terminated with a newline ("\n").
+Default interval for sensor reports is 30 seconds.
+
+
+
+Node.js -> Arduino
+
+433 new <period> <addr> <unit> <"on"|"off"|"dim"> (<dimlevel>)
+433 old <period> <code>
+
+
+
+Arduino -> Node.js
+
+433 new <period> <addr> <unit> <"on"|"off"|"dim"> (<dimlevel>)
+433 old <period> <code>
+
+ds18x20 <pin> <idx> <temp>
+dht11 <pin> <temp> <humidity>
+input <pin> <state>
+lux <pin> <lux>
+electricPower <pin> <value>
+heatPower <rxpin> <txpin> <value>
+waterMeter <pin> <value>

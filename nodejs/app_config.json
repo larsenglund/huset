@@ -1,0 +1,179 @@
+{
+    "installation": "Huset",
+    "gateway": {
+        "id": 1,
+        "networkId": 250,
+        "has433MHz": true
+    },
+    "nodes": [
+        {
+            "name": "Forradet",
+            "id": 2,
+            "networkId": 250,
+            "has433MHz": false,
+            "dht11": [
+                {
+                    "name": "Forradet golv",
+                    "pin": 9,
+                    "lastValues": {
+                        "temp": 20.5,
+                        "humidity": 88
+                    }
+                },
+                {
+                    "name": "Forradet tak",
+                    "pin": 9,
+                    "lastValues": {
+                        "temp": 20.5,
+                        "humidity": 88
+                    }
+                }
+            ],
+            "ds18x20": [
+                {
+                    "name": "Bron",
+                    "pin": 9,
+                    "idx": 1,
+                    "lastValue": 20.5
+                }
+            ],
+            "input": [
+                {
+                    "name": "Magnetswitch ytterdorr",
+                    "pin": 7,
+                    "lastState": 0
+                },
+                {
+                    "name": "Rorelsedetektor bron",
+                    "pin": 8,
+                    "lastState": 0
+                }
+            ],
+            "output": [],
+            "lux": [
+                {
+                    "name": "Ljus",
+                    "pin": 9,
+                    "lastValue": 12345
+                }
+            ],
+            "electricPower": [
+                {
+                    "name": "Fjarrvarme",
+                    "pin": 9,
+                    "lastValue": 12345
+                }
+            ],
+            "heatPower": [
+                {
+                    "name": "Strom",
+                    "pins": {
+                        "rx": 9,
+                        "tx": 10
+                    },
+                    "lastValue": 12345
+                }
+            ],
+            "waterMeter": [
+                {
+                    "name": "Vatten",
+                    "pin": 9,
+                    "lastValue": 12345
+                }
+            ],
+            "ultrasonic": []
+        }
+    ],
+    "remotes": [
+        {
+            "id_name": "Jula_Anslut",
+            "name": "Jula_Anslut",
+            "period": 262,
+            "type": "new",
+            "dimmer": false,
+            "address": 55371774,
+            "buttons": {
+                "1": 15,
+                "2": 14,
+                "3": 13
+            }
+        },
+        {
+            "id_name": "First_Rate",
+            "name": "First_Rate",
+            "period": 292,
+            "type": "old",
+            "buttons": {
+                "11AA": {
+                    "on": 525554,
+                    "off": 525552
+                }
+            }
+        },
+        {
+            "id_name": "Magnet_1",
+            "name": "Takfonstret",
+            "period": 258,
+            "type": "newMagnet",
+            "address": 861252,
+            "button": {
+                "magnet": 9
+            },
+            "lastState": "closed"
+        },
+        {
+            "id_name": "Brandvarnare_Lilla_Hallen",
+            "name": "Brandvarnare_Lilla_Hallen",
+            "period": 258,
+            "type": "newSmokeDetector",
+            "address": 861252,
+            "button": {
+                "smokeDetector": 9
+            },
+            "lastState": "idle"
+        },
+        {
+            "id_name": "Virtual_Dimmer",
+            "name": "Virtual_Dimmer",
+            "period": 258,
+            "type": "new",
+            "dimmer": true,
+            "address": 861252,
+            "buttons": {
+                "1": 1
+            }
+        }
+    ],
+    "remoteReceivers": [
+        {
+            "type": "switch",
+            "name": "Stjarnorna i trappen",
+            "remote": "Jula_Anslut",
+            "buttons": "2",
+            "lastState": "off"
+        },
+        {
+            "type": "switch",
+            "name": "Lysmasken i sovrummet",
+            "remote": "Jula_Anslut",
+            "buttons": "1",
+            "lastState": "off"
+        },
+        {
+            "type": "switch",
+            "name": "Lampan vid stereon",
+            "remote": "First_Rate",
+            "buttons": "11AA",
+            "lastState": "off"
+        },
+        {
+            "type": "dimmer",
+            "id_name": "lampa3",
+            "name": "Taklampor i hallen",
+            "remote": "Virtual_Dimmer",
+            "buttons": "1",
+            "lastState": "off",
+            "lastDimmerLevel": 7
+        }
+    ]
+}

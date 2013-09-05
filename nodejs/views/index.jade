@@ -1,0 +1,71 @@
+extends layout
+
+block content
+    div(data-role='page',id='lightsPage')
+        div(data-role='content',class='ui-content')
+            //
+                div(data-role='fieldcontain')
+                    label(for='lamp1') Lampa 1:
+                    select(id='lamp1',name='lamp1',data-role='slider',data-mini='true')
+                        option(value='off') Av
+                        option(value='on') På
+                div(data-role='fieldcontain')
+                    label(for='lamp2') Lampa 2:
+                    select(id='lamp2',name='lamp2',data-role='slider',data-mini='true')
+                        option(value='off') Av
+                        option(value='on') På
+            each remoteReceiver, i in remoteReceivers
+                if remoteReceiver.type == "switch"
+                    div(data-role='fieldcontain')
+                        div(class='ui-grid-a')
+                            div(class='ui-block-a')
+                                label(for='switch_#{i}') #{remoteReceiver.name}:
+                            div(class='ui-block-b')
+                                select(id='switch_#{i}',name='switch_#{i}',data-role='slider',data-mini='true')
+                                    option(value='off') Av
+                                    if remoteReceiver.lastState == "on"
+                                        option(value='on', selected) På
+                                    else
+                                        option(value='on') På
+
+        div(data-role='footer',class='ui-header ui-bar-a',data-id='mystaticnavbar',data-position='fixed')
+            div(data-role='navbar')
+                ul#topnav
+                    li
+                        a(href='#lightsPage',data-transition='none',class='ui-btn-active ui-state-persist') Belysning
+                    li
+                        a(href='#sensorsPage',data-transition='none') Sensorer
+
+
+    div(data-role='page',id='sensorsPage')
+        div(data-role='content',class='ui-content')
+            div(data-role="fieldcontain")
+                fieldset(data-role="controlgroup", data-type="horizontal")
+                    //legend Titta pa:
+                    input(type="radio", name="radio-view", id="radio-view-a", value="list",data-mini="true")
+                    label(for="radio-view-a") 3 timmar
+                    input(type="radio", name="radio-view", id="radio-view-b", value="list",data-mini="true", checked)
+                    label(for="radio-view-b") 24 timmar
+                    input(type="radio", name="radio-view", id="radio-view-c", value="list",data-mini="true")
+                    label(for="radio-view-c") 3 dagar
+            p *graf*
+            p Just nu
+                div(class='ui-grid-a')
+                    div(class='ui-block-a') 
+                        p Bron
+                    div(class='ui-block-b') 
+                        p#temp1 0
+                div(class='ui-grid-a')
+                    div(class='ui-block-a') 
+                        p Forradet
+                    div(class='ui-block-b') 
+                        p#temp1 0
+            p Prognos
+
+        div(data-role='footer',class='ui-header ui-bar-a',data-id='mystaticnavbar',data-position='fixed')
+            div(data-role='navbar')
+                ul#topnav
+                    li
+                        a(href='#lightsPage',data-transition='none') Belysning
+                    li
+                        a(href='#sensorsPage',data-transition='none',class='ui-btn-active ui-state-persist') Sensorer
