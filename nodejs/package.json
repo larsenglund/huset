@@ -1,5 +1,5 @@
 {
-  "name": "HUS",
+  "name": "Huset",
   "version": "0.0.1",
   "description": "Hus test",
   "dependencies": {
@@ -7,7 +7,11 @@
     "express": "latest",
     "jade": "latest",
     "serialport": "latest",
-    "rrd": "C:\\Users\\Administrator\\Documents\\GitHub\\node_rrd"
+    "node-rrdtool": "latest"
   },
-  "author": "developer"
+  "author": "Lars Englund <lars.englund@gmail.com> (http://en.gravatar.com/larsenglund)",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/larsenglund/huset.git"
+  }
 }
