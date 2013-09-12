@@ -24,3 +24,4 @@ lux <pin> <lux>
 electricPower <pin> <value>
 heatPower <rxpin> <txpin> <value>
 waterMeter <pin> <value>
+soil <pin> <value>
