@@ -1,0 +1,12 @@
+[submodule "arduino/inotool/gateway/lib/RFM69"]
+	path = arduino/inotool/gateway/lib/RFM69
+	url = https://github.com/LowPowerLab/RFM69.git
+[submodule "arduino/inotool/gateway/lib/SPIFlash"]
+	path = arduino/inotool/gateway/lib/SPIFlash
+	url = https://github.com/LowPowerLab/SPIFlash.git
+[submodule "arduino/inotool/node/lib/SPIFlash"]
+	path = arduino/inotool/node/lib/SPIFlash
+	url = https://github.com/LowPowerLab/SPIFlash.git
+[submodule "arduino/inotool/node/lib/RFM69"]
+	path = arduino/inotool/node/lib/RFM69
+	url = https://github.com/LowPowerLab/RFM69.git
