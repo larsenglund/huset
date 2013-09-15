@@ -33,6 +33,108 @@ int inDataIdx = 0;
 char *p1,*p2,*p3,*p4,*p5,*p6,*p7;
 //filenameString.toCharArray(filename, 100);
 
+
+// shows the received code sent from an old-style remote switch
+void showOldCode(unsigned long receivedCode, unsigned int period) {
+  // Print the received code.
+/*  Serial.print("Code: ");
+  Serial.print(receivedCode);
+  Serial.print(", period: ");
+  Serial.print(period);
+  Serial.println("us.");*/
+  Serial.print("433 old ");
+  Serial.print(period);
+  Serial.print(" ");
+  Serial.print(receivedCode);
+  Serial.print("\n");
+}
+
+// Shows the received code sent from an new-style remote switch
+void handleNewCode(NewRemoteCode receivedCode) {
+  // Print the received code.
+  /*Serial.print("Addr ");
+  Serial.print(receivedCode.address);
+
+  if (receivedCode.groupBit) {
+    Serial.print(" group");
+  } 
+  else {
+    Serial.print(" unit ");
+    Serial.print(receivedCode.unit);
+  }
+
+  switch (receivedCode.switchType) {
+    case NewRemoteCode::off:
+    Serial.print(" off");
+    break;
+    case NewRemoteCode::on:
+    Serial.print(" on");
+    break;
+    case NewRemoteCode::dim:
+    Serial.print(" dim level ");
+    Serial.print(receivedCode.dimLevel);
+    break;
+    case NewRemoteCode::on_with_dim:
+    Serial.print(" on with dim level ");
+    Serial.print(receivedCode.dimLevel);
+    break;
+  }
+
+  Serial.print(", period: ");
+  Serial.print(receivedCode.period);
+  Serial.println("us.");*/
+  Serial.print("433 new ");
+  Serial.print(receivedCode.period);
+  Serial.print(" ");
+  Serial.print(receivedCode.address);
+  Serial.print(" ");
+  if (receivedCode.groupBit) {
+    Serial.print("0");
+  } 
+  else {
+    Serial.print(receivedCode.unit);
+  }
+  Serial.print(" ");
+  switch (receivedCode.switchType) {
+    case NewRemoteCode::off:
+      Serial.print("off");
+      break;
+    case NewRemoteCode::on:
+      Serial.print("on");
+      break;
+    case NewRemoteCode::dim:
+      Serial.print("dim ");
+      Serial.print(receivedCode.dimLevel);
+      break;
+    case NewRemoteCode::on_with_dim:
+      Serial.print("on ");
+      Serial.print(receivedCode.dimLevel);
+      break;  
+  }
+  Serial.print("\n");
+}
+
+// Shows the received sensor data
+void showTempHumi(byte *data) {
+  // is data a ThermoHygro-device?
+  if ((data[3] & 0x1f) == 0x1e) {
+    // Yes!
+    byte channel, randomId;
+    int temp;
+    byte humidity;
+
+    // Decode the data
+    SensorReceiver::decodeThermoHygro(data, channel, randomId, temp, humidity);
+
+    // Print temperature. Note: temp is 10x the actual temperature!
+    Serial.print("Temperature: ");
+    Serial.print(temp / 10); // units
+    Serial.print('.');
+    Serial.println(temp % 10); // decimal
+  }
+}
+
+
 void setup() {
   Serial.begin(115200);
   Serial.print("app_version ");
@@ -42,7 +144,7 @@ void setup() {
   RemoteReceiver::init(-1, 2, showOldCode);
 
   // Again, interrupt -1 to indicate you will call the interrupt handler with InterruptChain
-  NewRemoteReceiver::init(-1, 2, showNewCode);
+  NewRemoteReceiver::init(-1, 2, handleNewCode);
 
   // And once more, interrupt -1 to indicate you will call the interrupt handler with InterruptChain
   SensorReceiver::init(-1, showTempHumi);
@@ -172,104 +274,3 @@ void loop()
      }*/
   }
 }
-
-// shows the received code sent from an old-style remote switch
-void showOldCode(unsigned long receivedCode, unsigned int period) {
-  // Print the received code.
-/*  Serial.print("Code: ");
-  Serial.print(receivedCode);
-  Serial.print(", period: ");
-  Serial.print(period);
-  Serial.println("us.");*/
-  Serial.print("433 old ");
-  Serial.print(period);
-  Serial.print(" ");
-  Serial.print(receivedCode);
-  Serial.print("\n");
-}
-
-// Shows the received code sent from an new-style remote switch
-void showNewCode(NewRemoteCode receivedCode) {
-  // Print the received code.
-  /*Serial.print("Addr ");
-  Serial.print(receivedCode.address);
-
-  if (receivedCode.groupBit) {
-    Serial.print(" group");
-  } 
-  else {
-    Serial.print(" unit ");
-    Serial.print(receivedCode.unit);
-  }
-
-  switch (receivedCode.switchType) {
-    case NewRemoteCode::off:
-    Serial.print(" off");
-    break;
-    case NewRemoteCode::on:
-    Serial.print(" on");
-    break;
-    case NewRemoteCode::dim:
-    Serial.print(" dim level ");
-    Serial.print(receivedCode.dimLevel);
-    break;
-    case NewRemoteCode::on_with_dim:
-    Serial.print(" on with dim level ");
-    Serial.print(receivedCode.dimLevel);
-    break;
-  }
-
-  Serial.print(", period: ");
-  Serial.print(receivedCode.period);
-  Serial.println("us.");*/
-  Serial.print("433 new ");
-  Serial.print(receivedCode.period);
-  Serial.print(" ");
-  Serial.print(receivedCode.address);
-  Serial.print(" ");
-  if (receivedCode.groupBit) {
-    Serial.print("0");
-  } 
-  else {
-    Serial.print(receivedCode.unit);
-  }
-  Serial.print(" ");
-  switch (receivedCode.switchType) {
-    case NewRemoteCode::off:
-      Serial.print("off");
-      break;
-    case NewRemoteCode::on:
-      Serial.print("on");
-      break;
-    case NewRemoteCode::dim:
-      Serial.print("dim ");
-      Serial.print(receivedCode.dimLevel);
-      break;
-    case NewRemoteCode::on_with_dim:
-      Serial.print("on ");
-      Serial.print(receivedCode.dimLevel);
-      break;  
-  }
-  Serial.print("\n");
-}
-
-// Shows the received sensor data
-void showTempHumi(byte *data) {
-  // is data a ThermoHygro-device?
-  if ((data[3] & 0x1f) == 0x1e) {
-    // Yes!
-    byte channel, randomId;
-    int temp;
-    byte humidity;
-
-    // Decode the data
-    SensorReceiver::decodeThermoHygro(data, channel, randomId, temp, humidity);
-
-    // Print temperature. Note: temp is 10x the actual temperature!
-    Serial.print("Temperature: ");
-    Serial.print(temp / 10); // units
-    Serial.print('.');
-    Serial.println(temp % 10); // decimal
-  }
-}
-

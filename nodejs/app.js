@@ -4,7 +4,7 @@ var port = 3700;
 var io = require('socket.io').listen(app.listen(port));
 console.log('Listening on port ' + port);
 
-/*
+
 var rrd = require('rrd');
 var filename = __dirname + '/test.rrd';
 var now = Math.ceil((new Date).getTime() / 1000);
@@ -15,8 +15,8 @@ rrd.create(filename, 60, now, ["DS:busy:GAUGE:120:0:U", "RRA:LAST:0.5:1:60"], fu
         console.log(info.filename, info.rrd_version);
     }); 
 });
-*/
 
+/*
 var RRDTool = require('node-rrdtool');
 var rrd = new RRDTool();
 var filename = __dirname + '/test.rrd';
@@ -24,6 +24,7 @@ var now = Math.ceil((new Date).getTime() / 1000);
 rrd.version(function (err, data) {
     console.log('Version: ' + data);
 });
+*/
 
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;

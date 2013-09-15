@@ -7,7 +7,7 @@
     "express": "latest",
     "jade": "latest",
     "serialport": "latest",
-    "node-rrdtool": "latest"
+    "rrd": "git://github.com/Orion98MC/node_rrd.git"
   },
   "author": "Lars Englund <lars.englund@gmail.com> (http://en.gravatar.com/larsenglund)",
   "repository": {

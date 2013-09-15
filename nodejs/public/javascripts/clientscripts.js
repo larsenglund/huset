@@ -1,5 +1,7 @@
 var isConnected = false;
-var socket = io.connect('http://192.168.1.139', {
+var server_address = 'http://192.168.1.22';
+console.log('connecting to ' + server_address + '..');
+var socket = io.connect(server_address, {
     'reconnection delay': 1000,
     'max reconnection attempts': 99999999
 });
