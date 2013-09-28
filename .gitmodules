@@ -1,12 +1,24 @@
 [submodule "arduino/inotool/gateway/lib/RFM69"]
 	path = arduino/inotool/gateway/lib/RFM69
-	url = https://github.com/LowPowerLab/RFM69.git
+	url = git://github.com/LowPowerLab/RFM69.git
 [submodule "arduino/inotool/gateway/lib/SPIFlash"]
 	path = arduino/inotool/gateway/lib/SPIFlash
-	url = https://github.com/LowPowerLab/SPIFlash.git
+	url = git://github.com/LowPowerLab/SPIFlash.git
 [submodule "arduino/inotool/node/lib/SPIFlash"]
 	path = arduino/inotool/node/lib/SPIFlash
-	url = https://github.com/LowPowerLab/SPIFlash.git
+	url = git://github.com/LowPowerLab/SPIFlash.git
 [submodule "arduino/inotool/node/lib/RFM69"]
 	path = arduino/inotool/node/lib/RFM69
-	url = https://github.com/LowPowerLab/RFM69.git
+	url = git://github.com/LowPowerLab/RFM69.git
+[submodule "arduino/inotool/mygateway/lib/RFM69"]
+	path = arduino/inotool/mygateway/lib/RFM69
+	url = git://github.com/LowPowerLab/RFM69.git
+[submodule "arduino/inotool/mygateway/lib/SPIFlash"]
+	path = arduino/inotool/mygateway/lib/SPIFlash
+	url = git://github.com/LowPowerLab/SPIFlash.git
+[submodule "arduino/inotool/mynode/lib/SPIFlash"]
+	path = arduino/inotool/mynode/lib/SPIFlash
+	url = git://github.com/LowPowerLab/SPIFlash.git
+[submodule "arduino/inotool/mynode/lib/RFM69"]
+	path = arduino/inotool/mynode/lib/RFM69
+	url = git://github.com/LowPowerLab/RFM69.git

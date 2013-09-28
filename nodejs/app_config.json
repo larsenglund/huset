@@ -5,38 +5,54 @@
         "networkId": 250,
         "has433MHz": true
     },
-    "nodes": [
-        {
+    "nodes": {
+        "id11": {
             "name": "Forradet",
-            "id": 2,
+            "id": 11,
             "networkId": 250,
             "has433MHz": false,
-            "dht11": [
-                {
-                    "name": "Forradet golv",
-                    "pin": 9,
-                    "lastValues": {
-                        "temp": 20.5,
-                        "humidity": 88
-                    }
+            "rrds": {
+                "temperature": "RadioTemperatureStorage.rrd",
+                "rssi": "RadioRSSIStorage.rrd"
                 },
-                {
-                    "name": "Forradet tak",
-                    "pin": 9,
+            "lastValues": {
+                "temperature": 22,
+                "rssi": -35
+                },
+            "dht11": {
+                "pin5": {
+                    "name": "Forradet fagel",
+                    "pin": 5,
+                    "rrds": {
+                        "temperature": "DHTTemperatureStorage.rrd",
+                        "humidity": "DHTHumidityStorage.rrd"
+                        },
                     "lastValues": {
-                        "temp": 20.5,
+                        "temperature": 20.5,
                         "humidity": 88
                     }
                 }
-            ],
-            "ds18x20": [
-                {
+            },
+            "ds18x20": {
+                "pin4addr16": {
                     "name": "Bron",
-                    "pin": 9,
-                    "idx": 1,
+                    "pin": 4,
+                    "addr": 16,
+                    "rrd":  {
+                        "temperature": "DS1820TemperaturePorch.rrd"
+                        },
+                    "lastValue": 20.5
+                },
+                "pin4addr40": {
+                    "name": "Forradet fisk",
+                    "pin": 4,
+                    "addr": 40,
+                    "rrd": {
+                        "temperature": "DS1820TemperatureStorage.rrd"
+                        },
                     "lastValue": 20.5
                 }
-            ],
+            },
             "input": [
                 {
                     "name": "Magnetswitch ytterdorr",
@@ -83,7 +99,7 @@
             ],
             "ultrasonic": []
         }
-    ],
+    },
     "remotes": [
         {
             "id_name": "Jula_Anslut",

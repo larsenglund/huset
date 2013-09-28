@@ -48,7 +48,53 @@ block content
                     label(for="radio-view-b") 24 timmar
                     input(type="radio", name="radio-view", id="radio-view-c", value="list",data-mini="true")
                     label(for="radio-view-c") 3 dagar
-            p *graf*
+            div(data-role="collapsible",data-mini="true")
+                h3 Temperatur
+                div(data-role="collapsible",data-mini="true")
+                    h3 Dygn
+                    img(src="/rrd_images/Temperature_24H.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 Vecka
+                    img(src="/rrd_images/Temperature_weekly.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 Månad
+                    img(src="/rrd_images/Temperature_monthly.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 År
+                    img(src="/rrd_images/Temperature_yearly.png",width="100%")
+            div(data-role="collapsible",data-mini="true")
+                h3 Fukt
+                div(data-role="collapsible",data-mini="true")
+                    h3 Dygn
+                    img(src="/rrd_images/Humidity_24H.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 Vecka
+                    img(src="/rrd_images/Humidity_weekly.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 Månad
+                    img(src="/rrd_images/Humidity_monthly.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 År
+                    img(src="/rrd_images/Humidity_yearly.png",width="100%")
+            div(data-role="collapsible",data-mini="true")
+                h3 El/Värme/Vatten
+                div(data-role="collapsible",data-mini="true")
+                    h3 Dygn
+                    img(src="/rrd_images/Power_24H.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 Vecka
+                    img(src="/rrd_images/Power_weekly.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 Månad
+                    img(src="/rrd_images/Power_monthly.png",width="100%")
+                div(data-role="collapsible",data-mini="true")
+                    h3 År
+                    img(src="/rrd_images/Power_yearly.png",width="100%")
+            div(data-role="collapsible",data-mini="true")
+                h3 System
+                div(data-role="collapsible",data-mini="true")
+                    h3 Dygn
+                    img(src="/rrd_images/RSSI_24H.png",width="100%")
             p Just nu
                 div(class='ui-grid-a')
                     div(class='ui-block-a') 

@@ -18,7 +18,7 @@ Arduino -> Node.js
 433 old <period> <code>
 
 ds18x20 <pin> <idx> <temp>
-dht11 <pin> <temp> <humidity>
+dht11 <pin> <addr> <temp> <humidity>
 input <pin> <state>
 lux <pin> <lux>
 electricPower <pin> <value>
