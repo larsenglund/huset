@@ -14,6 +14,21 @@ GPRINT:a:AVERAGE:"Medel\:%6.2lf%s" \
 GPRINT:a:MAX:"Max\:%6.2lf%s" \
 GPRINT:a:MIN:"Min\:%6.2lf%s\n"
 
+rrdtool graph /home/lars/huset/nodejs/public/rrd_images/RSSI_weekly.png \
+--height=350 \
+--width=900 \
+COMMENT:"\n" \
+--vertical-label="RSSI weekly" \
+--alt-y-grid \
+--slope-mode --start -7d \
+--upper-limit 0 --lower-limit -110 \
+DEF:a=/home/lars/RRD/RadioRSSIStorage.rrd:rssi:AVERAGE \
+LINE:a#ff1c1c:"Storage room\t" \
+GPRINT:a:LAST:"Nu\:%6.2lf%s" \
+GPRINT:a:AVERAGE:"Medel\:%6.2lf%s" \
+GPRINT:a:MAX:"Max\:%6.2lf%s" \
+GPRINT:a:MIN:"Min\:%6.2lf%s\n"
+
 rrdtool graph /home/lars/huset/nodejs/public/rrd_images/Humidity_weekly.png \
 --height=350 \
 --width=900 \

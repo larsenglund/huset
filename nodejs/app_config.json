@@ -31,22 +31,34 @@
                         "temperature": 20.5,
                         "humidity": 88
                     }
+                },
+                "pin6": {
+                    "name": "Hallen",
+                    "pin": 6,
+                    "rrds": {
+                        "temperature": "DHTTemperatureHallway.rrd",
+                        "humidity": "DHTHumidityHallway.rrd"
+                        },
+                    "lastValues": {
+                        "temperature": 20.5,
+                        "humidity": 88
+                    }
                 }
             },
             "ds18x20": {
-                "pin4addr16": {
+                "pin4addr40": {
                     "name": "Bron",
                     "pin": 4,
-                    "addr": 16,
+                    "addr": 40,
                     "rrd":  {
                         "temperature": "DS1820TemperaturePorch.rrd"
                         },
                     "lastValue": 20.5
                 },
-                "pin4addr40": {
+                "pin4addr16": {
                     "name": "Forradet fisk",
                     "pin": 4,
-                    "addr": 40,
+                    "addr": 16,
                     "rrd": {
                         "temperature": "DS1820TemperatureStorage.rrd"
                         },

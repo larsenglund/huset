@@ -35,6 +35,22 @@ rrd.version(function (err, data) {
 });
 */
 
+var util = require('util'),
+    exec = require('child_process').exec,
+    child;
+
+setInterval(function() {
+    child = exec('./images.sh', // command line argument directly in string
+      function (error, stdout, stderr) {      // one easy function to capture data/errors
+        console.log('stdout: ' + stdout);
+        console.log('stderr: ' + stderr);
+        if (error !== null) {
+          console.log('exec error: ' + error);
+        }
+    });
+}, 60000*5);
+
+
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort;
 var mySerialPort;
@@ -56,54 +72,83 @@ serialport.list(function (err, ports) {
         console.log('open');
         mySerialPort.on('data', function(data) {
             var str = data.toString().trim();
-            if (str.length == 0) {
+            if (str.length < 3) {
                 return;
             }
             console.log('serial received ' + data.toString().length + ' bytes:' +
                         ' trimmed string [' + str + ']');
             var parts = str.split(' ');
-            if (parts[1] == 'ds18x20') { // && parts[3] == '16') {
-                var sensor = appConfig.nodes['id' + parts[0]].ds18x20['pin' + parts[2] + 'addr' + parts[3]];
-                //console.log(sensor);
-                var temperature = parseFloat(parts[4]);
-                console.log('Got new ds18x20 temperature ' + temperature + ' for ' + sensor.name + ', logging to ' + sensor.rrd.temperature);
-                sensor.lastValue = temperature;
-                //console.log(appConfig.nodes['id' + parts[0]].ds18x20['pin' + parts[2] + 'addr' + parts[3]]);
-                rrd.update(rrd_file_root + sensor.rrd.temperature, 'temperature', [ [now(), temperature].join(':') ], function (error) {
-                    console.log(error === null ? '.' : error);
-                });
+            if (parts.length < 2) {
+                return;
             }
-            else if (parts[1] == 'dht11') {
-                var sensor = appConfig.nodes['id' + parts[0]].dht11['pin' + parts[2]];
-                var temperature = parseFloat(parts[3]);
-                var humidity = parseFloat(parts[4]);
-                console.log('Got new dht11 temperature ' + temperature + ' and humidity ' + humidity + 'for ' + sensor.name + ', logging to ' + sensor.rrds.temperature + ' and ' + sensor.rrds.humidity);
-                sensor.lastValues.temperature = temperature;
-                sensor.lastValues.humidity = humidity;
-                rrd.update(rrd_file_root + sensor.rrds.temperature, 'temperature', [ [now(), temperature].join(':') ], function (error) {
-                    console.log(error === null ? '.' : error);
-                });
-                rrd.update(rrd_file_root + sensor.rrds.humidity, 'humidity', [ [now(), humidity].join(':') ], function (error) {
-                    console.log(error === null ? '.' : error);
-                });
+            if (parts[1] == 'ds18x20' && parts.length >= 5) { // && parts[3] == '16') {
+                try {
+                    var sensor = appConfig.nodes['id' + parts[0]].ds18x20['pin' + parts[2] + 'addr' + parts[3]];
+                    //console.log(sensor);
+                    var temperature = parseFloat(parts[4]);
+                    console.log('Got new ds18x20 temperature ' + temperature + ' for ' + sensor.name + ', logging to ' + sensor.rrd.temperature);
+                    sensor.lastValue = temperature;
+                    //console.log(appConfig.nodes['id' + parts[0]].ds18x20['pin' + parts[2] + 'addr' + parts[3]]);
+                    rrd.update(rrd_file_root + sensor.rrd.temperature, 'temperature', [ [now(), temperature].join(':') ], function (error) {
+                        console.log(error === null ? '.' : error);
+                    });
+                }
+                catch (e) {
+                    console.log("Caught: " + e);
+                }
             }
-            else if (parts[1] == 'radio') {
-                var node = appConfig.nodes['id' + parts[0]];
-                var temperature = parseInt(parts[2]);
-                console.log('Got new radio temperature ' + temperature + ' for ' + node.name + ', logging to ' + node.rrds.temperature);
-                node.lastValues.temperature = temperature;
-                rrd.update(rrd_file_root + node.rrds.temperature, 'temperature', [ [now(), temperature].join(':') ], function (error) {
-                    console.log(error === null ? '.' : error);
-                });
+            else if (parts[1] == 'dht11' && parts.length >= 5) {
+                try {
+                    var sensor = appConfig.nodes['id' + parts[0]].dht11['pin' + parts[2]];
+                    var temperature = parseFloat(parts[3]);
+                    var humidity = parseFloat(parts[4]);
+                    console.log('Got new dht11 temperature ' + temperature + ' and humidity ' + humidity + 'for ' + sensor.name + ', logging to ' + sensor.rrds.temperature + ' and ' + sensor.rrds.humidity);
+                    sensor.lastValues.temperature = temperature;
+                    sensor.lastValues.humidity = humidity;
+                    rrd.update(rrd_file_root + sensor.rrds.temperature, 'temperature', [ [now(), temperature].join(':') ], function (error) {
+                        console.log(error === null ? '.' : error);
+                    });
+                    rrd.update(rrd_file_root + sensor.rrds.humidity, 'humidity', [ [now(), humidity].join(':') ], function (error) {
+                        console.log(error === null ? '.' : error);
+                    });
+                }
+                catch (e) {
+                    console.log("Caught: " + e);
+                }
             }
-            else if (parts[0] == 'debug') {
-                var node = appConfig.nodes['id' + parts[1]];
-                var rssi = parseInt(parts[2]);
-                console.log('Got new radio rssi ' + rssi + ' for ' + node.name + ', logging to ' + node.rrds.rssi);
-                node.lastValues.rssi = rssi;
-                rrd.update(rrd_file_root + node.rrds.rssi, 'rssi', [ [now(), rssi].join(':') ], function (error) {
-                    console.log(error === null ? '.' : error);
-                });
+            else if (parts[1] == 'radio' && parts.length >= 3) {
+                try {
+                    var node = appConfig.nodes['id' + parts[0]];
+                    var temperature = parseInt(parts[2]);
+                    console.log('Got new radio temperature ' + temperature + ' for ' + node.name + ', logging to ' + node.rrds.temperature);
+                    node.lastValues.temperature = temperature;
+                    rrd.update(rrd_file_root + node.rrds.temperature, 'temperature', [ [now(), temperature].join(':') ], function (error) {
+                        console.log(error === null ? '.' : error);
+                    });
+                }
+                catch (e) {
+                    console.log("Caught: " + e);
+                }
+            }
+            else if (parts[0] == 'debug' && parts.length >= 3) {
+                try {
+                    var node = appConfig.nodes['id' + parts[1]];
+                    var rssi = parseInt(parts[2]);
+                    console.log('Got new radio rssi ' + rssi + ' for ' + node.name + ', logging to ' + node.rrds.rssi);
+                    node.lastValues.rssi = rssi;
+                    rrd.update(rrd_file_root + node.rrds.rssi, 'rssi', [ [now(), rssi].join(':') ], function (error) {
+                        console.log(error === null ? '.' : error);
+                    });
+                }
+                catch (e) {
+                    console.log("Caught: " + e);
+                }
+            }
+            else if (parts[0] == 'ack') {
+                // Do nothing
+            }
+            else {
+                console.log("Erroneous package?");
             }
             //io.sockets.emit('flip', {flipid: 'lamp1', state: (str == '1' ? 'on' : 'off')});
         });  

@@ -1,0 +1,54 @@
+#include <RFM69.h>
+#include <SPI.h>
+#include <SPIFlash.h>
+
+#define NODEID      1
+#define NETWORKID   250
+#define FREQUENCY   RF69_868MHZ //Match this with the version of your Moteino! (others: RF69_433MHZ, RF69_868MHZ)
+#define KEY         "thisIsEncryptKey" //has to be same 16 characters/bytes on all nodes, not more not less!
+#define LED         9
+#define SERIAL_BAUD 115200
+#define ACK_TIME    500  // # of ms to wait for an ack
+
+RFM69 radio;
+SPIFlash flash(8, 0xEF30); //EF40 for 16mbit windbond chip
+bool promiscuousMode = false; //set to 'true' to sniff all packets on the same network
+
+void setup() {
+  Serial.begin(SERIAL_BAUD);
+  delay(10);
+  radio.initialize(FREQUENCY,NODEID,NETWORKID);
+  radio.promiscuous(promiscuousMode);
+   /*if (flash.initialize())
+    Serial.println("SPI Flash Init OK!");
+  else
+    Serial.println("SPI Flash Init FAIL! (is chip present?)");*/
+  Serial.print("Start wireless gateway...");
+}
+
+void loop() {
+  if (radio.receiveDone())
+  {
+    Serial.print('[');Serial.print(radio.SENDERID, DEC);Serial.print("] ");
+    for (byte i = 0; i < radio.DATALEN; i++)
+      Serial.print((char)radio.DATA[i]);
+    Serial.print("   [RX_RSSI:");Serial.print(radio.readRSSI());Serial.print("]");
+    
+    if (radio.ACK_REQUESTED)
+    {
+      radio.sendACK();
+      Serial.print(" - ACK sent.");   
+    }
+    
+    Serial.println();
+    Blink(LED,3);
+  }
+}
+
+void Blink(byte PIN, int DELAY_MS)
+{
+  pinMode(PIN, OUTPUT);
+  digitalWrite(PIN,HIGH);
+  delay(DELAY_MS);
+  digitalWrite(PIN,LOW);
+}
